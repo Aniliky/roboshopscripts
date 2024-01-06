@@ -30,10 +30,16 @@ fi
 dnf install maven -y &>> $LOGFILE
 VALIDATE $? "maven app install"
 
-useradd roboshop &>> $LOGFILE
-VALIDATE $? "adding user roboshop"
+id roboshop
+if [ $? -ne 0 ]
+then 
+    useradd roboshop &>> $LOGFILE
+    VALIDATE $? "USER CREATED"
+else
+    echo "user already exist" 
+fi
 
-mkdir /app &>> $LOGFILE
+mkdir -p /app &>> $LOGFILE
 VALIDATE $? "dirrectory making"
 
 curl -L -o /tmp/shipping.zip https://roboshop-builds.s3.amazonaws.com/shipping.zip &>> $LOGFILE  

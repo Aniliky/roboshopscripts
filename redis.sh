@@ -38,4 +38,4 @@ VALIDATE $? "ALLOWING REMOTE ACCESS"
 systemctl enable redis &>> $LOGFILE
 VALIDATE $? "REDIS ENABLE"
 systemctl start redis &>> $LOGFILE
-VALIDATE "REDIS START"
+VALIDATE $? "REDIS START"
