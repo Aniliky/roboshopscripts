@@ -27,15 +27,15 @@ then
 else
     echo -e "$G your are a root user $N"
 fi
-dnf install https://rpms.remirepo.net/enterprise/remi-release-8.rpm -y &>> LOGFILE
+dnf install https://rpms.remirepo.net/enterprise/remi-release-8.rpm -y &>> $LOGFILE
 VALIDATE $? "REDIS APP DOWNLOAD"
-dnf module enable redis:remi-6.2 -y &>> LOGFILE
+dnf module enable redis:remi-6.2 -y &>> $LOGFILE
 VALIDATE $? "REDIS ENABLE"
-dnf install redis -y &>> LOGFILE
+dnf install redis -y &>> $LOGFILE
 VALIDATE $? "REDIS INSTALL"
-sed -i 's/127.0.0.1/0.0.0.0/g' /etc/redis.conf &>> LOGFILE
+sed -i 's/127.0.0.1/0.0.0.0/g' /etc/redis.conf &>> $LOGFILE
 VALIDATE $? "ALLOWING REMOTE ACCESS"
-systemctl enable redis &>> LOGFILE
+systemctl enable redis &>> $LOGFILE
 VALIDATE $? "REDIS ENABLE"
-systemctl start redis &>> LOGFILE
+systemctl start redis &>> $LOGFILE
 VALIDATE "REDIS START"

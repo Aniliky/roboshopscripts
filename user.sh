@@ -44,16 +44,27 @@ else
 fi
 mkdir -p /app &>> $LOGFILE
 VALIDATE $? "APP DIRECTORY CREATED"
-curl -L -o /tmp/user.zip https://roboshop-builds.s3.amazonaws.com/user.zip
+curl -L -o /tmp/user.zip https://roboshop-builds.s3.amazonaws.com/user.zip &>> $LOGFILE
+VALIDATE $? "download user app"
 cd /app 
-unzip -o /tmp/user.zip
-npm install 
-cp /home/centos/roboshopscripts/user.service /etc/systemd/system/user.service
+unzip -o /tmp/user.zip &>> $LOGFILE
+VALIDATE $? "unzipping files"
+npm install &>> $LOGFILE
+VALIDATE $? "dependencies"
+cp /home/centos/roboshopscripts/user.service /etc/systemd/system/user.service &>> $LOGFILE
+VALIDATE $? "copying files"
 
-systemctl daemon-reload
-systemctl enable user
-systemctl start user
-cp /home/centos/roboshopscripts/mongo.repo /etc/yum.repos.d/mongo.repo
-dnf install mongodb-org-shell -y
-mongo --host  </app/schema/user.js
+systemctl daemon-reload &>> $LOGFILE
+VALIDATE $? "daemon reload"
+systemctl enable user &>> $LOGFILE
+VALIDATE $? "enabiling"
+systemctl start user &>> $LOGFILE
+VALIDATE $? "starting"
+
+cp /home/centos/roboshopscripts/mongo.repo /etc/yum.repos.d/mongo.repo &>> $LOGFILE
+VALIDATE $? "mongorep"
+dnf install mongodb-org-shell -y &>> $LOGFILE
+VALIDATE $? "installing mongo client"
+mongo --host mongo.anilroboshop.online </app/schema/user.js &>> $LOGFILE
+VALIDATE $? "loading schema"
 
