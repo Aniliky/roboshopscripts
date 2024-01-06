@@ -44,19 +44,16 @@ else
 fi
 mkdir -p /app &>> $LOGFILE
 VALIDATE $? "APP DIRECTORY CREATED"
-curl -L -o /tmp/cart.zip https://roboshop-builds.s3.amazonaws.com/cart.zip &>> $LOGFILE
-VALIDATE $? "cart application download"
+curl -L -o /tmp/user.zip https://roboshop-builds.s3.amazonaws.com/user.zip
 cd /app 
-unzip -o /tmp/cart.zip &>> $LOGFILE
-VALIDATE $? "cart application unzipping"
+unzip -o /tmp/user.zip
+npm install 
+cp /home/centos/roboshopscripts/user.service /etc/systemd/system/user.service
 
-cd /app 
-npm install &>> $LOGFILE
-VALIDATE $? "installation of dependencies"
-cp /home/centos/roboshopscripts/cart.service /etc/systemd/system/cart.service &>> $LOGFILE
-VALIDATE $? "cart service copying"
-systemctl daemon-reload &>> $LOGFILE
-VALIDATE $? "daemon-reload"
-systemctl enable cart &>> $LOGFILE
-systemctl start cart &>> $LOGFILE
-VALIDATE $? "start"
+systemctl daemon-reload
+systemctl enable user
+systemctl start user
+cp /home/centos/roboshopscripts/mongo.repo /etc/yum.repos.d/mongo.repo
+dnf install mongodb-org-shell -y
+mongo --host  </app/schema/user.js
+
