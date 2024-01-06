@@ -64,5 +64,5 @@ cp /home/centos/roboshopscripts/mongo.repo /etc/yum.repos.d/mongo.repo &>> $LOGF
 VALIDATE $? "MONOGREPO COPYING"
 dnf install mongodb-org-shell -y &>> $LOGFILE
 VALIDATE $? "MONGODB INSTALLAION"
-mongo --host 172.31.36.205 </app/schema/catalogue.js &>> $LOGFILE
+mongo --host mongodb.anilroboshop.online </app/schema/catalogue.js &>> $LOGFILE
 VALIDATE $? "Loading catalouge data into MongoDB"
