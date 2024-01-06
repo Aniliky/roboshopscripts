@@ -65,6 +65,6 @@ cp /home/centos/roboshopscripts/mongo.repo /etc/yum.repos.d/mongo.repo &>> $LOGF
 VALIDATE $? "mongorep"
 dnf install mongodb-org-shell -y &>> $LOGFILE
 VALIDATE $? "installing mongo client"
-mongo --host mongo.anilroboshop.online </app/schema/user.js &>> $LOGFILE
+mongo --host mongodb.anilroboshop.online </app/schema/user.js &>> $LOGFILE
 VALIDATE $? "loading schema"
 
