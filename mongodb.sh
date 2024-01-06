@@ -15,6 +15,7 @@ VALIDATE(){
     if [ $1 -ne 0 ]
     then
         echo -e "$2 is $R failed $N"
+        exit 1
     else
         echo -e "$2 is $G success $N"
     fi
@@ -32,14 +33,14 @@ cp mongo.repo /etc/yum.repos.d/mongo.repo &>> $LOGFILE
 
 VALIDATE $? "copying repo"
 
-dnf instal mongodb-org -y &>> $LOGFILE
+dnf install mongodb-org -y &>> $LOGFILE
 
 VALIDATE $? "MONGODB INSTALLATION"
 
 systemctl enable mongod &>> $LOGFILE
 VALIDATE $? "MONGODB ENABLE"
 
-systemctl start monogd &>> $LOGFILE
+systemctl start monogod &>> $LOGFILE
 VALIDATE $? "MOGODB START"
 
 sed -i 's/127.0.0.1 to 0.0.0.0/g' /etc/mongod.conf &>> $LOGFILE
