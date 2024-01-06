@@ -60,7 +60,7 @@ VALIDATE $? "DAEMON-RELOAD"
 systemctl enable catalogue &>> $LOGFILE
 systemctl start catalogue &>> $LOGFILE
 VALIDATE $? "CATALOGUE START"
-cp /home/centos/robshopscripts/mongo.repo /etc/yum.repos.d/mongo.repo &>> $LOGFILE
+cp /home/centos/roboshopscripts/mongo.repo /etc/yum.repos.d/mongo.repo &>> $LOGFILE
 VALIDATE $? "MONOGREPO COPYING"
 dnf install mongodb-org-shell -y &>> $LOGFILE
 VALIDATE $? "MONGODB INSTALLAION"
