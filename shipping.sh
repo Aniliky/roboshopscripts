@@ -73,7 +73,7 @@ VALIDATE $? "starting shipping"
 dnf install mysql -y &>> $LOGFILE
 VALIDATE $? "mqsql install"
 
-mysql -h <MYSQL-SERVER-IPADDRESS> -uroot -pRoboShop@1 < /app/schema/shipping.sql &>> $LOGFILE
+mysql -h mysql.anilroboshop.online -uroot -pRoboShop@1 < /app/schema/shipping.sql &>> $LOGFILE
 VALIDATE $? "loading schema"
 systemctl restart shipping &>> $LOGFILE
 VALIDATE $? "restart shipping"
